@@ -17,7 +17,7 @@ public class OfflineJudge {
     public static final PrintStream CONSOLE_ERR = System.err;
 
     public static void main(String[] args) throws Exception {
-        ProblemSet problemSet = ProblemSet.loadFromFolder(new File("data/lab1"));
+        ProblemSet problemSet = ProblemSet.loadFromFolder(new File(args[0]));
         int score = 100;
 
         System.out.println("Judged by OfflineJudge: " + new Date());
