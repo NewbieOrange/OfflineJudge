@@ -23,7 +23,8 @@
 hs_err_pid*
 
 /.idea
-/data
+/data/*
+!/data/example/
 /out
 /student
 *.iml
