@@ -2,9 +2,12 @@ import xyz.chengzi.offlinejudge.data.TestCase;
 
 public class SpecialJudge extends TestCase {
     public SpecialJudge() {
-        super(new String[]{"1", "2", "3", "4", "5", "6", "7", "777"}, null);
-        // The input will be "1\n2\n3\n4\n5\n6\n7\n777\n" in System.in,
+        // The input will be "34\n56\n23\n78\n4395\n1\n34\n66\n" in System.in,
         // or the entire array as the argument of main(args) function.
+    }
+
+    public String[] getInputs() {
+        return new String[] { "34\n56\n23\n78\n4395\n1\n34\n66\n" };
     }
 
     @Override
