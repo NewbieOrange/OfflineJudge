@@ -40,10 +40,6 @@ public class Judge {
         System.setOut(printStream);
         System.setErr(printStream);
 
-        long unlockCode = System.nanoTime();
-        JudgeSecurityManager judgeSecurityManager = new JudgeSecurityManager(unlockCode);
-        System.setSecurityManager(judgeSecurityManager);
-
         CountDownLatch countDownLatch = new CountDownLatch(1);
         List<JudgeResult> judgeResults = new ArrayList<>();
         Thread workerThread = new Thread(() -> {
@@ -70,6 +66,11 @@ public class Judge {
             }
             countDownLatch.countDown();
         });
+
+        // Set the security manager after creating worker thread to avoid the check.
+        long unlockCode = System.nanoTime();
+        JudgeSecurityManager judgeSecurityManager = new JudgeSecurityManager(unlockCode);
+        System.setSecurityManager(judgeSecurityManager);
         workerThread.start();
 
         if (!countDownLatch.await(problem.getTimeLimit(), TimeUnit.MILLISECONDS)) {
