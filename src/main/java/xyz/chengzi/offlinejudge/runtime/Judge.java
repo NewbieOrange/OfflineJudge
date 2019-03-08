@@ -50,12 +50,12 @@ public class Judge {
             for (TestCase testCase : problem.getTestCases()) {
                 JudgeResult caseResult = JudgeResult.ACCEPTED;
 
-                String[] args = testCase.getInputs();
+                String[] inputs = testCase.getInputs();
                 if (testCase.getInputType() == TestCase.InputType.SYSTEM_IN) {
-                    judgeInputStream.offer(testCase.getInputs());
-                    args = new String[0];
+                    judgeInputStream.offer(inputs);
+                    inputs = new String[0];
                 }
-                if (!runMainMethod(sourceClass, args)) {
+                if (!runMainMethod(sourceClass, inputs)) {
                     caseResult = JudgeResult.RUNTIME_ERROR;
                 } else if (!testCase.isAnswerCorrect(outputCollectStream.toString())) {
                     caseResult = JudgeResult.WRONG_ANSWER;
