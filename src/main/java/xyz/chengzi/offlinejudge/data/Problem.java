@@ -32,12 +32,12 @@ public class Problem {
 
     public static Problem loadFromFolder(File folder) throws Exception {
         List<TestCase> testCases = new ArrayList<>();
-        for (File subFolder : folder.listFiles()) {
-            if (subFolder.getName().endsWith(".yml")) {
-                testCases.add(TestCase.loadFromYaml(subFolder));
-            } else if (subFolder.getName().endsWith(".java")) {
+        for (File testFile : folder.listFiles()) {
+            if (testFile.getName().endsWith(".yml")) {
+                testCases.add(TestCase.loadFromYaml(testFile));
+            } else if (testFile.getName().endsWith(".java")) {
                 RuntimeCompiler runtimeCompiler = new RuntimeCompiler();
-                Class<?> specialJudgeClass = runtimeCompiler.compile(subFolder);
+                Class<?> specialJudgeClass = runtimeCompiler.compile(testFile);
                 testCases.add((TestCase) specialJudgeClass.newInstance());
             }
         }
