@@ -2,9 +2,9 @@
 The offline judge system for automatic java assignment judgment
 
 ## Build Requirements
-You need to include the external library Apache Common IO version 2.6 or higher.
+You need to use Maven to build this project.
 
-The code need JDK 1.8 or higher to compile and execute.
+The judge need Java 11 or higher to compile and execute.
 
 ## How to Use
 Put the student assignment in /student folder. The filename should be the same as the problem name.
