@@ -34,12 +34,18 @@ public class RuntimeCompiler {
             JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, null,
                     Arrays.asList("-d", "./" + tempFolder.getName()), null, Collections.singletonList(fileObject));
             if (task.call()) {
-                String fileName = sourceFile.getName();
-                return new URLClassLoader(new URL[]{tempFolder.toURL()})
-                        .loadClass(fileName.substring(0, fileName.lastIndexOf('.')));
+                URLClassLoader classLoader = new URLClassLoader(new URL[]{tempFolder.toURL()});
+                for (File file : tempFolder.listFiles()) {
+                    classLoader.loadClass(removeExtension(file.getName()));
+                }
+                return classLoader.loadClass(removeExtension(sourceFile.getName()));
             }
         } catch (Exception ignored) { // Most likely to be a compile error due to incorrect user code
         }
         return null;
+    }
+
+    private static String removeExtension(String fileName) {
+        return fileName.substring(0, fileName.lastIndexOf('.'));
     }
 }
