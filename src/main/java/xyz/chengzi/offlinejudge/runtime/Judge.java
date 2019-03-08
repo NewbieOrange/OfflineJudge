@@ -50,9 +50,9 @@ public class Judge {
             for (TestCase testCase : problem.getTestCases()) {
                 JudgeResult caseResult = JudgeResult.ACCEPTED;
 
-                String[] args = testCase.getInputLines();
+                String[] args = testCase.getInputs();
                 if (testCase.getInputType() == TestCase.InputType.SYSTEM_IN) {
-                    judgeInputStream.offer(testCase.getInputLines());
+                    judgeInputStream.offer(testCase.getInputs());
                     args = new String[0];
                 }
                 if (!runMainMethod(sourceClass, args)) {

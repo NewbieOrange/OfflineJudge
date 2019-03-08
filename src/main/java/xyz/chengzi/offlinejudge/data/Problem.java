@@ -33,8 +33,8 @@ public class Problem {
     public static Problem loadFromFolder(File folder) throws Exception {
         List<TestCase> testCases = new ArrayList<>();
         for (File subFolder : folder.listFiles()) {
-            if (subFolder.isDirectory()) {
-                testCases.add(TestCase.loadFromFolder(subFolder));
+            if (subFolder.getName().endsWith(".yml")) {
+                testCases.add(TestCase.loadFromYaml(subFolder));
             } else if (subFolder.getName().endsWith(".java")) {
                 RuntimeCompiler runtimeCompiler = new RuntimeCompiler();
                 Class<?> specialJudgeClass = runtimeCompiler.compile(subFolder);

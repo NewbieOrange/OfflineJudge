@@ -1,0 +1,6 @@
+inputType: "ARGS" # Or SYSTEM_IN for Scanner Input
+inputs:
+  - "3"
+expectedAnswers:
+  - "18.84"
+  - "28.26"
