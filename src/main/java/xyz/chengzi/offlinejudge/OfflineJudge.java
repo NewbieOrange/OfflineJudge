@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class OfflineJudge {
     public static final InputStream CONSOLE_IN = System.in;
