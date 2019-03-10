@@ -17,7 +17,7 @@ public class OfflineJudge {
 
     public static void main(String[] args) throws Exception {
         ProblemSet problemSet = ProblemSet.loadFromFolder(new File(args[0]));
-        int score = 100;
+        int score = 0, fullScore = 0;
 
         System.out.println("Judged by OfflineJudge: " + new Date());
         System.out.println("--> https://github.com/NewbieOrange/OfflineJudge");
@@ -25,12 +25,13 @@ public class OfflineJudge {
             Judge judge = new Judge(problem, new File("student/" + problem.getName() + ".java"));
             List<Judge.JudgeResult> judgeResults = judge.judge();
             for (Judge.JudgeResult judgeResult : judgeResults) {
-                if (judgeResult != Judge.JudgeResult.ACCEPTED) {
-                    score -= 5;
+                if (judgeResult == Judge.JudgeResult.ACCEPTED) {
+                    score += 5;
                 }
             }
+            fullScore += 5 * problem.getTestCases().size();
             System.out.println(problem.getName() + ": " + judgeResults);
         }
-        System.out.println("Total Assignment Score: " + score);
+        System.out.println("Total Assignment Score: " + score + " / " + fullScore);
     }
 }
