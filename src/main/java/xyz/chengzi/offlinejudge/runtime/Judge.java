@@ -74,7 +74,7 @@ public class Judge {
         workerThread.start();
 
         if (!countDownLatch.await(problem.getTimeLimit(), TimeUnit.MILLISECONDS)) {
-            workerThread.stop(); // Forcefully stop the thread, should be safe for this circumstance.
+            workerThread.stop(); // Forcefully stop the thread, unsafe and may cause unexpected results.
             judgeResults.add(JudgeResult.TIME_LIMIT_EXCEEDED);
         }
         judgeSecurityManager.unlock(unlockCode);
@@ -92,8 +92,12 @@ public class Judge {
             return true;
         } catch (InvocationTargetException ite) {
             Throwable cause = ite.getCause();
-            if (cause != null && !(cause instanceof ThreadDeath)) { // Ignore for Thread.stop() due to TLE.
-                cause.printStackTrace(OfflineJudge.CONSOLE_ERR); // Print stacktrace to console.
+            if (cause != null) {
+                if (!(cause instanceof ThreadDeath)) { // Ignore for Thread.stop() due to TLE.
+                    cause.printStackTrace(OfflineJudge.CONSOLE_ERR); // Print stacktrace to the console.
+                } else {
+                    throw (ThreadDeath) cause; // Rethrow ThreadDeath to actually kill the thread.
+                }
             }
         } catch (Exception e) {
             e.printStackTrace(OfflineJudge.CONSOLE_ERR);

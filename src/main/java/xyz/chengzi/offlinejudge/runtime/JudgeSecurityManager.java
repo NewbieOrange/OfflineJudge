@@ -1,7 +1,10 @@
 package xyz.chengzi.offlinejudge.runtime;
 
+import xyz.chengzi.offlinejudge.OfflineJudge;
+
 import java.lang.reflect.ReflectPermission;
 import java.security.Permission;
+import java.util.Arrays;
 import java.util.PropertyPermission;
 
 public class JudgeSecurityManager extends SecurityManager {
@@ -20,15 +23,20 @@ public class JudgeSecurityManager extends SecurityManager {
         }
         if (perm instanceof RuntimePermission) {
             switch (perm.getName()) {
+                case "getClassLoader":
+                case "localeServiceProvider":
+                case "setIO":
+                    return;
                 case "accessDeclaredMembers":
                     if (isSystemClass(getClassContext()[3])) {
                         return;
                     }
                     break;
-                case "getClassLoader":
-                case "localeServiceProvider":
-                case "setIO":
-                    return;
+                case "stopThread":
+                    if (getClassContext()[2] == Judge.class) {
+                        return;
+                    }
+                    break;
             }
         }
         if (perm instanceof PropertyPermission) {
