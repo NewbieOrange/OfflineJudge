@@ -5,11 +5,8 @@ import xyz.chengzi.offlinejudge.data.ProblemSet;
 import xyz.chengzi.offlinejudge.runtime.Judge;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
