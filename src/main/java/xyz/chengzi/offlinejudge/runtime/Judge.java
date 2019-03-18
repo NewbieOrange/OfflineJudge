@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +19,7 @@ public class Judge {
         ACCEPTED, COMPILE_ERROR, RUNTIME_ERROR, TIME_LIMIT_EXCEEDED, WRONG_ANSWER
     }
 
-    private static final RuntimeCompiler COMPILER = new RuntimeCompiler();
+    private final RuntimeCompiler COMPILER = new RuntimeCompiler();
     private Problem problem;
     private File sourceFile;
 
@@ -39,6 +40,7 @@ public class Judge {
         System.setIn(judgeInputStream);
         System.setOut(printStream);
         System.setErr(printStream);
+        OfflineJudge.SCANNER = new Scanner(judgeInputStream); // FIXME
 
         CountDownLatch countDownLatch = new CountDownLatch(1);
         List<JudgeResult> judgeResults = new ArrayList<>();
