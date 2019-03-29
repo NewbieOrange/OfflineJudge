@@ -29,24 +29,21 @@ public class OfflineJudge {
     public static void judge(ProblemSet problemSet, String studentName) throws Exception {
         System.out.println("Judged by OfflineJudge: " + new Date() + ", " + studentName);
         System.out.println("--> https://github.com/NewbieOrange/OfflineJudge");
-        int score = 0;
+        int score = 0, totalScore = 0;
         for (Problem problem : problemSet) {
-            File srcFile = new File("student/" + studentName + "/Submission attachment(s)/" + problem.getName() + ".java");
+            File srcFile = new File("student/" + studentName + "/" + problem.getName() + ".java");
             overrideScanner(srcFile);
             Judge judge = new Judge(problem, srcFile);
             List<Judge.JudgeResult> judgeResults = judge.judge();
-            if (problem.getName().equals("A1Q5") && judgeResults.get(0) == Judge.JudgeResult.ACCEPTED) {
-                score += 20;
-            } else {
-                for (Judge.JudgeResult judgeResult : judgeResults) {
-                    if (judgeResult == Judge.JudgeResult.ACCEPTED) {
-                        score += 4;
-                    }
+            for (Judge.JudgeResult judgeResult : judgeResults) {
+                if (judgeResult == Judge.JudgeResult.ACCEPTED) {
+                    score += 5;
                 }
             }
+            totalScore += problem.getTestCases().size();
             System.out.println(problem.getName() + ": " + judgeResults);
         }
-        System.out.println("Total Assignment Score: " + score + " / " + 100);
+        System.out.println("Total Assignment Score: " + score + " / " + totalScore);
     }
 
     public static void overrideScanner(File file) throws Exception {
