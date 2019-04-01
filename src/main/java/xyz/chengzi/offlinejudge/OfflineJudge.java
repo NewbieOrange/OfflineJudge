@@ -40,7 +40,7 @@ public class OfflineJudge {
                     score += 5;
                 }
             }
-            totalScore += problem.getTestCases().size();
+            totalScore += problem.getTestCases().size() * 5;
             System.out.println(problem.getName() + ": " + judgeResults);
         }
         System.out.println("Total Assignment Score: " + score + " / " + totalScore);
